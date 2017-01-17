@@ -1,0 +1,32 @@
+
+// OpenCVHW3.h : main header file for the PROJECT_NAME application
+//
+
+#pragma once
+
+#ifndef __AFXWIN_H__
+	#error "include 'stdafx.h' before including this file for PCH"
+#endif
+
+#include "resource.h"		// main symbols
+
+
+// COpenCVHW3App:
+// See OpenCVHW3.cpp for the implementation of this class
+//
+
+class COpenCVHW3App : public CWinApp
+{
+public:
+	COpenCVHW3App();
+
+// Overrides
+public:
+	virtual BOOL InitInstance();
+
+// Implementation
+
+	DECLARE_MESSAGE_MAP()
+};
+
+extern COpenCVHW3App theApp;
