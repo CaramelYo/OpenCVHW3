@@ -6,6 +6,14 @@
 #include "OpenCVHW3.h"
 #include "OpenCVHW3Dlg.h"
 #include "afxdialogex.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/opencv.hpp>
+#include <vector>
+#include <cmath>
+#include <opencv2/xfeatures2d.hpp>
+
+using namespace std;
+using namespace cv;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -64,6 +72,7 @@ BEGIN_MESSAGE_MAP(COpenCVHW3Dlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &COpenCVHW3Dlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -152,3 +161,26 @@ HCURSOR COpenCVHW3Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void COpenCVHW3Dlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+
+	//to load image
+	Mat img1 = imread("database/plane1.jpg", CV_LOAD_IMAGE_COLOR),
+		img2 = imread("database/plane2.jpg", CV_LOAD_IMAGE_COLOR);
+
+	Ptr<Feature2D> f2d = xfeatures2d::SIFT::create();
+	vector<KeyPoint> keyPoints1, keyPoints2;
+	f2d->detect(img1, keyPoints1);
+	f2d->detect(img2, keyPoints2);
+
+	drawKeypoints(img1, keyPoints1, img1);
+	drawKeypoints(img2, keyPoints2, img2);
+
+	imshow("Image 1", img1);
+	imshow("Image 2", img2);
+
+	waitKey(0);
+}
